@@ -6,21 +6,21 @@
 //
 
 
-struct HSLColorSpace: RelativeColorSpace {
-    var hue, saturation, lightness: ColorUnit
-    var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
+public struct HSLColorSpace: RelativeColorSpace {
+    public var hue, saturation, lightness: ColorUnit
+    public var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
 
-    static let standardWhitePoint = CIExyY.D65WhitePoint
+    public static let standardWhitePoint = CIExyY.D65WhitePoint
 
-    func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace {
+    public func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace {
         return toSRGB().toXYZ(relativeTo: whitePoint)
     }
 
-    static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> HSLColorSpace {
+    public static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> HSLColorSpace {
         return fromSRGB(SRGBColorSpace.fromXYZ(xyz, relativeTo: whitePoint))
     }
 
-    func toSRGB() -> SRGBColorSpace {
+    public func toSRGB() -> SRGBColorSpace {
         let c = (1 - abs(2 * lightness - 1)) * saturation
         let x = c * (1 - abs((hue * 6).truncatingRemainder(dividingBy: 2) - 1))
         let m = lightness - c/2
@@ -38,7 +38,7 @@ struct HSLColorSpace: RelativeColorSpace {
         return SRGBColorSpace(red: r + m, green: g + m, blue: b + m)
     }
 
-    static func fromSRGB(_ srgb: SRGBColorSpace) -> HSLColorSpace {
+    public static func fromSRGB(_ srgb: SRGBColorSpace) -> HSLColorSpace {
         let max = Swift.max(srgb.red, srgb.green, srgb.blue)
         let min = Swift.min(srgb.red, srgb.green, srgb.blue)
         let chroma = max - min

@@ -6,20 +6,20 @@
 //
 import Foundation
 
-struct LabColorSpace: AbsoluteColorSpace {
-    typealias Components = (lightness: ColorUnit, a: ColorUnit, b: ColorUnit)
+public struct LabColorSpace: AbsoluteColorSpace {
+    public typealias Components = (lightness: ColorUnit, a: ColorUnit, b: ColorUnit)
 
-    static let name = "CIE Lab"
+    public static let name = "CIE Lab"
 
-    let components: Components
-    let whitePoint: CIExyY
+    public let components: Components
+    public let whitePoint: CIExyY
 
-    init(lightness: ColorUnit, a: ColorUnit, b: ColorUnit, whitePoint: CIExyY = .D65WhitePoint) {
+    public init(lightness: ColorUnit, a: ColorUnit, b: ColorUnit, whitePoint: CIExyY = .D65WhitePoint) {
         self.components = (lightness: lightness, a: a, b: b)
         self.whitePoint = whitePoint
     }
 
-    func toXYZ() -> XYZColorSpace {
+    public func toXYZ() -> XYZColorSpace {
         let fy = (components.lightness + 16) / 116
         let fx = components.a / 500 + fy
         let fz = fy - components.b / 200
@@ -36,11 +36,11 @@ struct LabColorSpace: AbsoluteColorSpace {
         return XYZColorSpace(x: xr * xw, y: yr * yw, z: zr * zw)
     }
 
-    static func fromXYZ(_ xyz: XYZColorSpace) -> Self {
+    public static func fromXYZ(_ xyz: XYZColorSpace) -> Self {
         fromXYZ(xyz, whitePoint: .D65WhitePoint)
     }
 
-    static func fromXYZ(_ xyz: XYZColorSpace, whitePoint: CIExyY) -> Self {
+    public static func fromXYZ(_ xyz: XYZColorSpace, whitePoint: CIExyY) -> Self {
         let (xw, yw, zw) = (whitePoint.x, whitePoint.y, whitePoint.Y)
         let xr = xyz.x / xw
         let yr = xyz.y / yw

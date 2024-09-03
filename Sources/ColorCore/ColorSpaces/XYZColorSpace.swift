@@ -6,10 +6,10 @@
 //
 
 
-struct XYZColorSpace: AbsoluteColorSpace, LinearColorSpace {
-    var x, y, z: ColorUnit
-    var components: (ColorUnit, ColorUnit, ColorUnit) { (x, y, z) }
+public struct XYZColorSpace: AbsoluteColorSpace, LinearColorSpace {
+    public var x, y, z: ColorUnit
+    public var components: (ColorUnit, ColorUnit, ColorUnit) { (x, y, z) }
 
-    func toXYZ() -> XYZColorSpace { self }
-    static func fromXYZ(_ xyz: XYZColorSpace) -> XYZColorSpace { xyz }
+    public func toXYZ() -> XYZColorSpace { self }
+    public static func fromXYZ(_ xyz: XYZColorSpace) -> XYZColorSpace { xyz }
 }

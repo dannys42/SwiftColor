@@ -6,7 +6,7 @@
 //
 
 
-protocol ColorSpace {
+public protocol ColorSpace {
     associatedtype Components
     var components: Components { get }
 }

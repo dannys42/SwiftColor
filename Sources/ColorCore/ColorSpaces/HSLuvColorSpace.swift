@@ -10,12 +10,12 @@ struct HSLuvColorSpace: AbsoluteColorSpace {
     var hue, saturation, lightness: ColorUnit
     var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
 
-    func toXYZ() -> XYZColorSpace {
+    public func toXYZ() -> XYZColorSpace {
         let tmp = toLuv()
         return luvToXyz(L: tmp.L, u: tmp.u, v: tmp.v)
     }
 
-    static func fromXYZ(_ xyz: XYZColorSpace) -> HSLuvColorSpace {
+    public static func fromXYZ(_ xyz: XYZColorSpace) -> HSLuvColorSpace {
         let luv = xyzToLuv(X: xyz.x, Y: xyz.y, Z: xyz.z)
         return luvToHSLuv(L: luv.L, u: luv.u, v: luv.v)
     }

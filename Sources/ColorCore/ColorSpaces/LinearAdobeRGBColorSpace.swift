@@ -6,11 +6,11 @@
 //
 
 
-struct LinearAdobeRGBColorSpace: RelativeColorSpace, LinearColorSpace {
-    var red, green, blue: ColorUnit
-    var components: (ColorUnit, ColorUnit, ColorUnit) { (red, green, blue) }
+public struct LinearAdobeRGBColorSpace: RelativeColorSpace, LinearColorSpace {
+    public var red, green, blue: ColorUnit
+    public var components: (ColorUnit, ColorUnit, ColorUnit) { (red, green, blue) }
 
-    static let standardWhitePoint = CIExyY.AdobeRGBWhitePoint
+    public static let standardWhitePoint = CIExyY.AdobeRGBWhitePoint
 
     private static let toXYZMatrix = Matrix3x3([
         [0.5767309, 0.1855540, 0.1881852],
@@ -24,12 +24,12 @@ struct LinearAdobeRGBColorSpace: RelativeColorSpace, LinearColorSpace {
         [ 0.0134474, -0.1183897,  1.0154096]
     ])
 
-    func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace {
+    public func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace {
         let xyz = Self.toXYZMatrix.multiply([red, green, blue])
         return XYZColorSpace(x: xyz[0], y: xyz[1], z: xyz[2])
     }
 
-    static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> LinearAdobeRGBColorSpace {
+    public static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> LinearAdobeRGBColorSpace {
         let rgb = Self.fromXYZMatrix.multiply([xyz.x, xyz.y, xyz.z])
         return LinearAdobeRGBColorSpace(red: rgb[0], green: rgb[1], blue: rgb[2])
     }

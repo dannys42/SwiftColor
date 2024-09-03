@@ -6,4 +6,4 @@
 //
 
 
-protocol LinearColorSpace: ColorSpace {}
+public protocol LinearColorSpace: ColorSpace {}
