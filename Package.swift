@@ -5,6 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "Color",
+    products: [
+        .executable(name: "color-convert", targets: [ "color-convert" ]),
+        .library(name: "ColorCore", targets: [ "ColorCore" ]),
+    ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
     ],

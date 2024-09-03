@@ -6,5 +6,5 @@
 //
 
 public protocol ChromaticAdaptation {
-    func adapt(color: LinearColorSpace, from sourceWhitePoint: CIExyY, to destinationWhitePoint: CIExyY) -> LinearColorSpace
+    func adapt(color: any LinearColorSpace, from sourceWhitePoint: CIExyY, to destinationWhitePoint: CIExyY) -> any LinearColorSpace
 }

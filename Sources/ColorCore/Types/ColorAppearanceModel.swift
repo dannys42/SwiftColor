@@ -7,5 +7,5 @@
 
 
 public protocol ColorAppearanceModel {
-    func adjust(color: LinearColorSpace, from sourceIlluminant: CIExyY, to destinationIlluminant: CIExyY, sourceAdaptingLuminance: ColorUnit, destinationAdaptingLuminance: ColorUnit) -> LinearColorSpace
+    func adjust(color: any LinearColorSpace, from sourceIlluminant: CIExyY, to destinationIlluminant: CIExyY, sourceAdaptingLuminance: ColorUnit, destinationAdaptingLuminance: ColorUnit) -> any LinearColorSpace
 }
