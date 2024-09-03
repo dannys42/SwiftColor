@@ -70,16 +70,6 @@ public struct LabColorSpace: AbsoluteColorSpace {
     }
 }
 
-fileprivate extension ColorUnit {
-    var cubeRoot: ColorUnit {
-        self < 0 ? -pow(-self, 1/3) : pow(self, 1/3)
-    }
-
-    func clamped(to range: ClosedRange<ColorUnit>) -> ColorUnit {
-        max(range.lowerBound, min(self, range.upperBound))
-    }
-}
-
 extension AbsoluteColorSpace {
     public func toLabColorSpace() -> LabColorSpace {
         if let lab = self as? LabColorSpace {
