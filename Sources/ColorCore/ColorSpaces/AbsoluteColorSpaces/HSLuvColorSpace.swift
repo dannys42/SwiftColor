@@ -6,11 +6,11 @@
 //
 import Foundation
 
-struct HSLuvColorSpace: AbsoluteColorSpace {
-    var hue, saturation, lightness: ColorUnit
-    var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
+public struct HSLuvColorSpace: AbsoluteColorSpace {
+    public var hue, saturation, lightness: ColorUnit
+    public var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
 
-    init(hue: ColorUnit, saturation: ColorUnit, lightness: ColorUnit) {
+    public init(hue: ColorUnit, saturation: ColorUnit, lightness: ColorUnit) {
         self.hue = hue
         self.saturation = saturation
         self.lightness = lightness
