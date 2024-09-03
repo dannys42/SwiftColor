@@ -15,12 +15,18 @@ public struct AdobeRGBColorSpace: RelativeColorSpace {
     private static let gamma: ColorUnit = 2.2
     private static let inverseGamma: ColorUnit = 1 / gamma
 
+    init(red: ColorUnit, green: ColorUnit, blue: ColorUnit) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+    }
+
     public func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace {
         return toLinearAdobeRGB().toXYZ(relativeTo: whitePoint)
     }
 
-    public static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> AdobeRGBColorSpace {
-        return fromLinearAdobeRGB(LinearAdobeRGBColorSpace.fromXYZ(xyz, relativeTo: whitePoint))
+    public init(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) {
+        self.init(LinearAdobeRGBColorSpace(xyz, relativeTo: whitePoint))
     }
 
     public func toLinearAdobeRGB() -> LinearAdobeRGBColorSpace {
@@ -30,11 +36,11 @@ public struct AdobeRGBColorSpace: RelativeColorSpace {
         return LinearAdobeRGBColorSpace(red: transform(red), green: transform(green), blue: transform(blue))
     }
 
-    public static func fromLinearAdobeRGB(_ linear: LinearAdobeRGBColorSpace) -> AdobeRGBColorSpace {
+    public init(_ linear: LinearAdobeRGBColorSpace) {
         func transform(_ v: ColorUnit) -> ColorUnit {
             return pow(v, Self.inverseGamma)
         }
-        return AdobeRGBColorSpace(red: transform(linear.red), green: transform(linear.green), blue: transform(linear.blue))
+        self.init(red: transform(linear.red), green: transform(linear.green), blue: transform(linear.blue))
     }
 
     // Convenience method to create AdobeRGB color from 8-bit integer values
@@ -67,11 +73,11 @@ public struct AdobeRGBColorSpace: RelativeColorSpace {
 extension AdobeRGBColorSpace {
     public func toSRGB() -> SRGBColorSpace {
         let xyz = self.toXYZ(relativeTo: .AdobeRGBWhitePoint)
-        return SRGBColorSpace.fromXYZ(xyz, relativeTo: SRGBColorSpace.standardWhitePoint)
+        return SRGBColorSpace(xyz, relativeTo: SRGBColorSpace.standardWhitePoint)
     }
 
-    public static func fromSRGB(_ srgb: SRGBColorSpace) -> AdobeRGBColorSpace {
+    public init(_ srgb: SRGBColorSpace) {
         let xyz = srgb.toXYZ(relativeTo: SRGBColorSpace.standardWhitePoint)
-        return AdobeRGBColorSpace.fromXYZ(xyz, relativeTo: .AdobeRGBWhitePoint)
+        self.init(xyz, relativeTo: .AdobeRGBWhitePoint)
     }
 }

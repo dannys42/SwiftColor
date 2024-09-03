@@ -10,5 +10,5 @@ public protocol RelativeColorSpace: ColorSpace {
     static var standardWhitePoint: CIExyY { get }
 
     func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace
-    static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> Self
+    init(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY)
 }

@@ -24,13 +24,19 @@ public struct LinearAdobeRGBColorSpace: RelativeColorSpace, LinearColorSpace {
         [ 0.0134474, -0.1183897,  1.0154096]
     ])
 
+    init(red: ColorUnit, green: ColorUnit, blue: ColorUnit) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+    }
+
     public func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace {
         let xyz = Self.toXYZMatrix.multiply([red, green, blue])
         return XYZColorSpace(x: xyz[0], y: xyz[1], z: xyz[2])
     }
 
-    public static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> LinearAdobeRGBColorSpace {
+    public init(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) {
         let rgb = Self.fromXYZMatrix.multiply([xyz.x, xyz.y, xyz.z])
-        return LinearAdobeRGBColorSpace(red: rgb[0], green: rgb[1], blue: rgb[2])
+        self = LinearAdobeRGBColorSpace(red: rgb[0], green: rgb[1], blue: rgb[2])
     }
 }

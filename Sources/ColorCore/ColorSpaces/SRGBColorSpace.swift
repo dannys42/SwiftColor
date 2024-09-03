@@ -13,12 +13,18 @@ public struct SRGBColorSpace: RelativeColorSpace {
 
     public static let standardWhitePoint = CIExyY.D65WhitePoint
 
+    init(red: ColorUnit, green: ColorUnit, blue: ColorUnit) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+    }
+
     public func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace {
         return toLinearSRGB().toXYZ(relativeTo: whitePoint)
     }
 
-    public static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> SRGBColorSpace {
-        return fromLinearSRGB(LinearSRGBColorSpace.fromXYZ(xyz, relativeTo: whitePoint))
+    public init(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) {
+        self.init(LinearSRGBColorSpace(xyz, relativeTo: whitePoint))
     }
 
     public func toLinearSRGB() -> LinearSRGBColorSpace {
@@ -28,10 +34,10 @@ public struct SRGBColorSpace: RelativeColorSpace {
         return LinearSRGBColorSpace(red: transform(red), green: transform(green), blue: transform(blue))
     }
 
-    public static func fromLinearSRGB(_ linear: LinearSRGBColorSpace) -> SRGBColorSpace {
+    public init(_ linear: LinearSRGBColorSpace) {
         func transform(_ v: ColorUnit) -> ColorUnit {
             return v <= 0.0031308 ? 12.92 * v : 1.055 * pow(v, 1/2.4) - 0.055
         }
-        return SRGBColorSpace(red: transform(linear.red), green: transform(linear.green), blue: transform(linear.blue))
+        self.init(red: transform(linear.red), green: transform(linear.green), blue: transform(linear.blue))
     }
 }

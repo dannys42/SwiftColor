@@ -10,14 +10,20 @@ struct HSLuvColorSpace: AbsoluteColorSpace {
     var hue, saturation, lightness: ColorUnit
     var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
 
+    init(hue: ColorUnit, saturation: ColorUnit, lightness: ColorUnit) {
+        self.hue = hue
+        self.saturation = saturation
+        self.lightness = lightness
+    }
+
     public func toXYZ() -> XYZColorSpace {
         let tmp = toLuv()
         return luvToXyz(L: tmp.L, u: tmp.u, v: tmp.v)
     }
 
-    public static func fromXYZ(_ xyz: XYZColorSpace) -> HSLuvColorSpace {
-        let luv = xyzToLuv(X: xyz.x, Y: xyz.y, Z: xyz.z)
-        return luvToHSLuv(L: luv.L, u: luv.u, v: luv.v)
+    public init(_ xyz: XYZColorSpace) {
+        let luv = Self.xyzToLuv(X: xyz.x, Y: xyz.y, Z: xyz.z)
+        self = Self.luvToHSLuv(L: luv.L, u: luv.u, v: luv.v)
     }
 
     private func toLuv() -> (L: ColorUnit, u: ColorUnit, v: ColorUnit) {

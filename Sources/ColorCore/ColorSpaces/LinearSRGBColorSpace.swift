@@ -24,13 +24,19 @@ public struct LinearSRGBColorSpace: RelativeColorSpace, LinearColorSpace {
         [ 0.0556434, -0.2040259,  1.0572252]
     ])
 
+    init(red: ColorUnit, green: ColorUnit, blue: ColorUnit) {
+        self.red = red
+        self.green = green
+        self.blue = blue
+    }
+
     public func toXYZ(relativeTo whitePoint: CIExyY) -> XYZColorSpace {
         let xyz = Self.toXYZMatrix.multiply([red, green, blue])
         return XYZColorSpace(x: xyz[0], y: xyz[1], z: xyz[2])
     }
 
-    public static func fromXYZ(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) -> LinearSRGBColorSpace {
+    public init(_ xyz: XYZColorSpace, relativeTo whitePoint: CIExyY) {
         let rgb = Self.fromXYZMatrix.multiply([xyz.x, xyz.y, xyz.z])
-        return LinearSRGBColorSpace(red: rgb[0], green: rgb[1], blue: rgb[2])
+        self.init(red: rgb[0], green: rgb[1], blue: rgb[2])
     }
 }

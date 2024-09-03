@@ -8,5 +8,5 @@
 
 public protocol AbsoluteColorSpace: ColorSpace {
     func toXYZ() -> XYZColorSpace
-    static func fromXYZ(_ xyz: XYZColorSpace) -> Self
+    init(_ xyz: XYZColorSpace)
 }

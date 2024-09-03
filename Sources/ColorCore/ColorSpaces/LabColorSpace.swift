@@ -36,11 +36,11 @@ public struct LabColorSpace: AbsoluteColorSpace {
         return XYZColorSpace(x: xr * xw, y: yr * yw, z: zr * zw)
     }
 
-    public static func fromXYZ(_ xyz: XYZColorSpace) -> Self {
-        fromXYZ(xyz, whitePoint: .D65WhitePoint)
+    public init(_ xyz: XYZColorSpace) {
+        self.init(xyz, whitePoint: .D65WhitePoint)
     }
 
-    public static func fromXYZ(_ xyz: XYZColorSpace, whitePoint: CIExyY) -> Self {
+    public init(_ xyz: XYZColorSpace, whitePoint: CIExyY) {
         let (xw, yw, zw) = (whitePoint.x, whitePoint.y, whitePoint.Y)
         let xr = xyz.x / xw
         let yr = xyz.y / yw
@@ -57,7 +57,7 @@ public struct LabColorSpace: AbsoluteColorSpace {
         let a = 500 * (fx - fy)
         let b = 200 * (fy - fz)
 
-        return LabColorSpace(lightness: L, a: a, b: b, whitePoint: whitePoint)
+        self.init(lightness: L, a: a, b: b, whitePoint: whitePoint)
     }
 
     func clamped() -> Self {
