@@ -81,3 +81,16 @@ extension AdobeRGBColorSpace {
         self.init(xyz, relativeTo: .AdobeRGBWhitePoint)
     }
 }
+
+extension RelativeColorSpace {
+    public func toAdobeRGBColorSpace(relativeTo whitePoint: CIExyY = Self.standardWhitePoint) -> AdobeRGBColorSpace {
+        if let adobeRGB = self as? AdobeRGBColorSpace {
+            return adobeRGB
+        }
+        return AdobeRGBColorSpace(self.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
+    }
+
+    public init(adobeRGB: AdobeRGBColorSpace, relativeTo whitePoint: CIExyY = Self.standardWhitePoint) {
+        self.init(adobeRGB.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
+    }
+}

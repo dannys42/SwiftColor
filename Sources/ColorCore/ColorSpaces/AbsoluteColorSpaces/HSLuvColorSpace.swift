@@ -184,3 +184,19 @@ func maxSafeChromaForL(L: ColorUnit) -> ColorUnit {
 
     return min
 }
+
+extension AbsoluteColorSpace {
+    public func toHSLuvColorSpace() -> HSLuvColorSpace {
+        if let hsluv = self as? HSLuvColorSpace {
+            return hsluv
+        }
+
+        let xyz = self.toXYZ()
+
+        return HSLuvColorSpace(xyz)
+    }
+
+    init(hsluv: HSLuvColorSpace) {
+        self.init(hsluv.toXYZ())
+    }
+}

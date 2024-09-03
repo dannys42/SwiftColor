@@ -41,3 +41,16 @@ public struct SRGBColorSpace: RelativeColorSpace {
         self.init(red: transform(linear.red), green: transform(linear.green), blue: transform(linear.blue))
     }
 }
+
+extension RelativeColorSpace {
+    public func toSRGBColorSpace(relativeTo whitePoint: CIExyY = Self.standardWhitePoint) -> SRGBColorSpace {
+        if let srgb = self as? SRGBColorSpace {
+            return srgb
+        }
+        return SRGBColorSpace(self.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
+    }
+
+    public init(srgb: SRGBColorSpace, relativeTo whitePoint: CIExyY = Self.standardWhitePoint) {
+        self.init(srgb.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
+    }
+}

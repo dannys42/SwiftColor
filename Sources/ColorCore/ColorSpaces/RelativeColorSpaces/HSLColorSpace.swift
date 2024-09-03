@@ -72,3 +72,16 @@ public struct HSLColorSpace: RelativeColorSpace {
         self.init(hue: hue, saturation: saturation, lightness: lightness)
     }
 }
+
+extension RelativeColorSpace {
+    public func toHSLColorSpace(relativeTo whitePoint: CIExyY = Self.standardWhitePoint) -> HSLColorSpace {
+        if let hsl = self as? HSLColorSpace {
+            return hsl
+        }
+        return HSLColorSpace(self.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
+    }
+
+    public init(hsl: HSLColorSpace, relativeTo whitePoint: CIExyY = Self.standardWhitePoint) {
+        self.init(hsl.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
+    }
+}

@@ -40,3 +40,16 @@ public struct LinearAdobeRGBColorSpace: RelativeColorSpace, LinearColorSpace {
         self = LinearAdobeRGBColorSpace(red: rgb[0], green: rgb[1], blue: rgb[2])
     }
 }
+
+extension RelativeColorSpace {
+    public func toLinearAdobeRGBColorSpace(relativeTo whitePoint: CIExyY = Self.standardWhitePoint) -> LinearAdobeRGBColorSpace {
+        if let linearAdobeRGB = self as? LinearAdobeRGBColorSpace {
+            return linearAdobeRGB
+        }
+        return LinearAdobeRGBColorSpace(self.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
+    }
+
+    public init(linearAdobeRGB: LinearAdobeRGBColorSpace, relativeTo whitePoint: CIExyY = Self.standardWhitePoint) {
+        self.init(linearAdobeRGB.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
+    }
+}
