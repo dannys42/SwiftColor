@@ -9,7 +9,7 @@ let package = Package(
     products: [
         .executable(name: "color-convert", targets: [ "color-convert" ]),
         .library(name: "ColorSpaces", targets: [ "ColorSpaces" ]),
-        .library(name: "ColorSpaces-UIKit", targets: [ "ColorSpaces-UIKit" ]),
+        .library(name: "ColorSpaces-AppKit-UIKit", targets: [ "ColorSpaces-AppKit-UIKit" ]),
         .library(name: "ColorSpaces-SwiftUI", targets: [ "ColorSpaces-SwiftUI" ]),
     ],
     dependencies: [
@@ -29,7 +29,7 @@ let package = Package(
             dependencies: [
             ]),
         .target(
-            name: "ColorSpaces-UIKit",
+            name: "ColorSpaces-AppKit-UIKit",
             dependencies: [
                 "ColorSpaces",
             ]),
@@ -37,7 +37,7 @@ let package = Package(
             name: "ColorSpaces-SwiftUI",
             dependencies: [
                 "ColorSpaces",
-                "ColorSpaces-UIKit",
+                "ColorSpaces-AppKit-UIKit",
             ]),
     ]
 )

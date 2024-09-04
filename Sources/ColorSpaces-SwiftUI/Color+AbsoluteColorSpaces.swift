@@ -7,7 +7,39 @@
 
 import SwiftUI
 import ColorSpaces
-import ColorSpaces_UIKit
+import ColorSpaces_AppKit_UIKit
+
+extension Color {
+    fileprivate init(platformColor: PlatformColorType) {
+#if canImport(UIKit)
+        self.init(uiColor: platformColor)
+#else
+        self.init(platformColor)
+#endif
+    }
+}
+
+
+// MARK: LinearRGB
+@available(iOS 14.0, *)
+extension Color {
+    public func toLinearRGB() -> LinearRGBColorSpace {
+        PlatformColorType(self).toLinearRGB()
+    }
+
+
+    public init(linearRGB: LinearRGBColorSpace, alpha: ColorUnit = 1.0) {
+        let uiColor = PlatformColorType(linearRGB: linearRGB, alpha: 1.0)
+
+        self.init(platformColor: uiColor)
+    }
+
+    public func withLinearRGB(red: ColorUnit?=nil, green: ColorUnit?=nil, blue: ColorUnit?=nil, alpha: ColorUnit?=nil) -> Color {
+        let uiColor = PlatformColorType(self).withLinearRGB(red: red, green: green, blue: blue, alpha: alpha)
+
+        return Color(platformColor: uiColor)
+    }
+}
 
 // MARK: XYZ
 extension Color {
@@ -20,40 +52,19 @@ extension Color {
         self.init(linearRGB: linearRGB, alpha: alpha)
     }
 
-    public func withXYZ(x: ColorUnit?=nil, y: ColorUnit?=nil, z: ColorUnit?=nil, alpha: ColorUnit?=nil) -> UIColor {
-        let uiColor = UIColor(self)
+    public func withXYZ(x: ColorUnit?=nil, y: ColorUnit?=nil, z: ColorUnit?=nil, alpha: ColorUnit?=nil) -> Color {
+        let uiColor = PlatformColorType(self)
         let xyz = uiColor.toXYZ().withXYZ(x: x, y: y, z: z)
 
-        return UIColor(xyz: xyz, alpha: alpha ?? uiColor.cgColor.alpha)
+        return Color(xyz: xyz, alpha: alpha ?? uiColor.cgColor.alpha)
     }
 }
 
-
-// MARK: LinearRGB
-@available(iOS 14.0, *)
-extension Color {
-    public func toLinearRGB() -> LinearRGBColorSpace {
-        UIColor(self).toLinearRGB()
-    }
-
-
-    public init(linearRGB: LinearRGBColorSpace, alpha: ColorUnit = 1.0) {
-        let uiColor = UIColor(linearRGB: linearRGB, alpha: 1.0)
-
-        self.init(uiColor: uiColor)
-    }
-
-    public func withLinearRGB(red: ColorUnit?=nil, green: ColorUnit?=nil, blue: ColorUnit?=nil, alpha: ColorUnit?=nil) -> Color {
-        let uiColor = UIColor(self).withLinearRGB(red: red, green: green, blue: blue, alpha: alpha)
-
-        return Color(uiColor: uiColor)
-    }
-}
 
 // MARK: HSLuv
 extension Color {
     public func toHSLuv() -> HSLuvColorSpace {
-        UIColor(self).toHSLuv()
+        PlatformColorType(self).toHSLuv()
     }
 
     public init(hsluv: HSLuvColorSpace, alpha: ColorUnit = 1.0) {
@@ -63,7 +74,7 @@ extension Color {
 
     public func withHSLuv(hue: ColorUnit?=nil, saturation: ColorUnit?=nil, lightness: ColorUnit?=nil, alpha: ColorUnit?=nil) -> Color {
 
-        let uiColor = UIColor(self)
+        let uiColor = PlatformColorType(self)
 
         var hsluv = uiColor.toHSLuv()
         hsluv = hsluv.withHSLuv(hue: hue, saturation: saturation, lightness: lightness)
