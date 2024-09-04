@@ -14,7 +14,9 @@ public struct LabColorSpace: AbsoluteColorSpace {
     public let components: Components
     public let whitePoint: CIExyY
 
-    public init(lightness: ColorUnit, a: ColorUnit, b: ColorUnit, whitePoint: CIExyY = .D65WhitePoint) {
+    static public let standardWhitePoint = CIExyY.ColorSpace.AppleP3
+
+    public init(lightness: ColorUnit, a: ColorUnit, b: ColorUnit, whitePoint: CIExyY = standardWhitePoint) {
         self.components = (lightness: lightness, a: a, b: b)
         self.whitePoint = whitePoint
     }
@@ -37,7 +39,7 @@ public struct LabColorSpace: AbsoluteColorSpace {
     }
 
     public init(_ xyz: XYZColorSpace) {
-        self.init(xyz, whitePoint: .D65WhitePoint)
+        self.init(xyz, whitePoint: Self.standardWhitePoint)
     }
 
     public init(_ xyz: XYZColorSpace, whitePoint: CIExyY) {

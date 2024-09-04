@@ -10,7 +10,7 @@ public struct HSLColorSpace: RelativeColorSpace {
     public var hue, saturation, lightness: ColorUnit
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
 
-    public static let standardWhitePoint = CIExyY.D65WhitePoint
+    public static let standardWhitePoint = CIExyY.ColorSpace.AppleP3
 
     init(hue: ColorUnit, saturation: ColorUnit, lightness: ColorUnit) {
         self.hue = hue

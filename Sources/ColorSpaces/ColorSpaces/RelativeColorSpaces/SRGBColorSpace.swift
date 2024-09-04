@@ -11,7 +11,7 @@ public struct SRGBColorSpace: RelativeColorSpace {
     public var red, green, blue: ColorUnit
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (red, green, blue) }
 
-    public static let standardWhitePoint = CIExyY.D65WhitePoint
+    public static let standardWhitePoint = CIExyY.ColorSpace.AppleP3
 
     init(red: ColorUnit, green: ColorUnit, blue: ColorUnit) {
         self.red = red

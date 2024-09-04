@@ -10,7 +10,7 @@ public struct LinearSRGBColorSpace: RelativeColorSpace, LinearColorSpace {
     public var red, green, blue: ColorUnit
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (red, green, blue) }
 
-    public static let standardWhitePoint = CIExyY.D65WhitePoint
+    public static let standardWhitePoint = CIExyY.ColorSpace.AppleP3
 
     private static let toXYZMatrix = Matrix3x3(
         (0.4124564, 0.3575761, 0.1804375),

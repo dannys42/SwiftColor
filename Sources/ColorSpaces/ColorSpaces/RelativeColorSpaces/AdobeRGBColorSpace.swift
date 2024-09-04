@@ -10,7 +10,7 @@ public struct AdobeRGBColorSpace: RelativeColorSpace {
     public var red, green, blue: ColorUnit
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (red, green, blue) }
 
-    public static let standardWhitePoint = CIExyY.AdobeRGBWhitePoint
+    public static let standardWhitePoint = CIExyY.ColorSpace.AppleP3
 
     private static let gamma: ColorUnit = 2.2
     private static let inverseGamma: ColorUnit = 1 / gamma
@@ -72,13 +72,13 @@ public struct AdobeRGBColorSpace: RelativeColorSpace {
 // utility methods to convert between AdobeRGB and sRGB
 extension AdobeRGBColorSpace {
     public func toSRGB() -> SRGBColorSpace {
-        let xyz = self.toXYZ(relativeTo: .AdobeRGBWhitePoint)
+        let xyz = self.toXYZ(relativeTo: AdobeRGBColorSpace.standardWhitePoint)
         return SRGBColorSpace(xyz, relativeTo: SRGBColorSpace.standardWhitePoint)
     }
 
     public init(_ srgb: SRGBColorSpace) {
         let xyz = srgb.toXYZ(relativeTo: SRGBColorSpace.standardWhitePoint)
-        self.init(xyz, relativeTo: .AdobeRGBWhitePoint)
+        self.init(xyz, relativeTo: AdobeRGBColorSpace.standardWhitePoint)
     }
 }
 
