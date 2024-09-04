@@ -24,3 +24,20 @@ extension XYZColorSpace: AbsoluteColorSpace {
         self = xyz
     }
 }
+
+extension AbsoluteColorSpace {
+    public func withXYZ(x: ColorUnit?=nil, y: ColorUnit?=nil, z: ColorUnit?=nil) -> XYZColorSpace {
+        var xyz = self.toXYZ()
+        if let x {
+            xyz.x = x
+        }
+        if let y {
+            xyz.y = y
+        }
+        if let z {
+            xyz.z = z
+        }
+        return xyz
+    }
+
+}

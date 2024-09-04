@@ -5,11 +5,12 @@ import PackageDescription
 
 let package = Package(
     name: "Color",
-    platforms: [ .iOS(.v12), .macOS(.v11), .tvOS(.v12), .watchOS(.v4), .visionOS(.v1), .macCatalyst(.v13) ],
+    platforms: [ .iOS(.v15), .macOS(.v11), .tvOS(.v12), .watchOS(.v4), .visionOS(.v1), .macCatalyst(.v13) ],
     products: [
         .executable(name: "color-convert", targets: [ "color-convert" ]),
         .library(name: "ColorSpaces", targets: [ "ColorSpaces" ]),
         .library(name: "ColorSpaces-UIKit", targets: [ "ColorSpaces-UIKit" ]),
+        .library(name: "ColorSpaces-SwiftUI", targets: [ "ColorSpaces-SwiftUI" ]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
@@ -31,6 +32,12 @@ let package = Package(
             name: "ColorSpaces-UIKit",
             dependencies: [
                 "ColorSpaces",
+            ]),
+        .target(
+            name: "ColorSpaces-SwiftUI",
+            dependencies: [
+                "ColorSpaces",
+                "ColorSpaces-UIKit",
             ]),
     ]
 )

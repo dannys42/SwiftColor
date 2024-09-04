@@ -32,7 +32,7 @@ public struct LinearRGBColorSpace: AbsoluteColorSpace {
         self.green = green
         self.blue = blue
     }
-    
+
     public init(_ xyz: XYZColorSpace) {
         let rgb = Self.xyzToRgbMatrix.multiply((xyz.x, xyz.y, xyz.z))
         self.init(red: rgb.0, green: rgb.1, blue: rgb.2)
@@ -60,7 +60,23 @@ extension AbsoluteColorSpace {
         return LinearRGBColorSpace(self.toXYZ())
     }
 
-    init(linearRGB: LinearRGBColorSpace) {
+    public init(linearRGB: LinearRGBColorSpace) {
         self.init(linearRGB.toXYZ())
+    }
+
+
+    public func withLinearRGB(red: ColorUnit?=nil, green: ColorUnit?=nil, blue: ColorUnit?=nil) -> LinearRGBColorSpace {
+
+        var linearRGB = self.toLinearRGBColorSpace()
+        if let red {
+            linearRGB.red = red
+        }
+        if let green {
+            linearRGB.green = green
+        }
+        if let blue {
+            linearRGB.blue = blue
+        }
+        return linearRGB
     }
 }

@@ -196,7 +196,24 @@ extension AbsoluteColorSpace {
         return HSLuvColorSpace(xyz)
     }
 
-    init(hsluv: HSLuvColorSpace) {
+    public init(hsluv: HSLuvColorSpace) {
         self.init(hsluv.toXYZ())
     }
+
+    public func withHSLuv(hue: ColorUnit?=nil, saturation: ColorUnit?=nil, lightness: ColorUnit?=nil) -> HSLuvColorSpace {
+        var hsluv = self.toHSLuvColorSpace()
+
+        if let hue {
+            hsluv.hue = hue
+        }
+        if let saturation {
+            hsluv.saturation = saturation
+        }
+        if let lightness {
+            hsluv.lightness = lightness
+        }
+
+        return hsluv
+    }
+
 }

@@ -81,7 +81,8 @@ extension AbsoluteColorSpace {
         return LabColorSpace(xyz)
     }
 
-    init(lab: LabColorSpace) {
+    public init(lab: LabColorSpace) {
         self.init(lab.toXYZ())
     }
+
 }

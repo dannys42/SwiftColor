@@ -6,7 +6,12 @@
 //
 import Foundation
 
+//#if canImport(UIKit)
+//import UIKit
+//public typealias ColorUnit = CGFloat
+//#else
 public typealias ColorUnit = Double
+//#endif
 
 internal extension ColorUnit {
     var cubeRoot: ColorUnit {
@@ -17,4 +22,3 @@ internal extension ColorUnit {
         max(range.lowerBound, min(self, range.upperBound))
     }
 }
-
