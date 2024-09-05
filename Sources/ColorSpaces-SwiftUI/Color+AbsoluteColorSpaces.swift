@@ -9,17 +9,6 @@ import SwiftUI
 import ColorSpaces
 import ColorSpaces_AppKit_UIKit
 
-extension Color {
-    fileprivate init(platformColor: PlatformColorType) {
-#if canImport(UIKit)
-        self.init(uiColor: platformColor)
-#else
-        self.init(platformColor)
-#endif
-    }
-}
-
-
 // MARK: LinearRGB
 @available(iOS 14.0, *)
 extension Color {
