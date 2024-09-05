@@ -88,4 +88,21 @@ extension RelativeColorSpace {
     public init(hsb: HSBColorSpace, relativeTo whitePoint: CIExyY = Self.standardWhitePoint) {
         self.init(hsb.toXYZ(relativeTo: whitePoint), relativeTo: whitePoint)
     }
+
+    public func withHSB(hue: ColorUnit?=nil, saturation: ColorUnit?=nil, brightness: ColorUnit?=nil, relativeTo whitePoint: CIExyY = Self.standardWhitePoint) -> HSBColorSpace {
+        var hsb = self.toHSBColorSpace(relativeTo: whitePoint)
+
+        if let hue {
+            hsb.hue = hue
+        }
+        if let saturation {
+            hsb.saturation = saturation
+        }
+        if let brightness {
+            hsb.brightness = brightness
+        }
+
+        return hsb
+    }
+
 }

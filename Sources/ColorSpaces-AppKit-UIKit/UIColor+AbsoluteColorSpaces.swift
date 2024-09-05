@@ -6,10 +6,8 @@
 //
 #if canImport(UIKit)
 import UIKit
-public typealias PlatformColorType = UIColor
 #elseif canImport(AppKit)
 import AppKit
-public typealias PlatformColorType = NSColor
 #endif
 
 import ColorSpaces
@@ -77,9 +75,8 @@ extension PlatformColorType {
 
         var hsluv = self.toHSLuv()
         hsluv = hsluv.withHSLuv(hue: hue, saturation: saturation, lightness: lightness)
-        let linearRGB = hsluv.toLinearRGBColorSpace()
 
-        return PlatformColorType(linearRGB: linearRGB, alpha: alpha ?? self.cgColor.alpha)
+        return PlatformColorType(hsluv: hsluv, alpha: alpha ?? self.cgColor.alpha)
     }
 }
 
