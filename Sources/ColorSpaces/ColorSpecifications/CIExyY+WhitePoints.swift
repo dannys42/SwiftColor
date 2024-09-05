@@ -89,18 +89,23 @@ extension CIExyY {
         public static let textileIndustry = StandardIlluminant.D65  // Often used in textile color management
     }
 
-    // Common light sources
+    // Common Light Sources
     public struct LightSource {
         public static let incandescent = CIExyY(x: 0.4476, y: 0.4074, Y: 1.0)
+        public static let halogen = CIExyY(x: 0.4234, y: 0.3990, Y: 1.0)
         public static let fluorescent = CIExyY(x: 0.3131, y: 0.3371, Y: 1.0)
         public static let coolWhiteLED = CIExyY(x: 0.2883, y: 0.3101, Y: 1.0)
         public static let warmWhiteLED = CIExyY(x: 0.4585, y: 0.4103, Y: 1.0)
-        public static let halogen = CIExyY(x: 0.4234, y: 0.3990, Y: 1.0)
         public static let directSunlight = CIExyY(x: 0.3324, y: 0.3474, Y: 1.0)
         public static let overcastSky = CIExyY(x: 0.3101, y: 0.3162, Y: 1.0)
         public static let clearBlueSky = CIExyY(x: 0.2471, y: 0.2530, Y: 1.0)
         public static let candle = CIExyY(x: 0.5268, y: 0.4200, Y: 1.0)
         public static let sodium = CIExyY(x: 0.5669, y: 0.4231, Y: 1.0)
+        public static let metalHalide = CIExyY(x: 0.3723, y: 0.3768, Y: 1.0)
+        public static let highPressureSodium = CIExyY(x: 0.5216, y: 0.4356, Y: 1.0)
+        public static let tungstenHalogen = CIExyY(x: 0.4478, y: 0.4070, Y: 1.0)
+        public static let carbonArc = CIExyY(x: 0.3101, y: 0.3162, Y: 1.0)
+        public static let xenon = CIExyY(x: 0.3249, y: 0.3614, Y: 1.0)
     }
 
     // Specialized Application White Points
