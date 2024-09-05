@@ -9,6 +9,7 @@
 public struct LinearRGBColorSpace: AbsoluteColorSpace {
     public var red, green, blue: ColorUnit
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (red, green, blue) }
+    public static let standardWhitePoint = CIExyY.StandardIlluminant.D65
 
     static let name = "Linear RGB"
     

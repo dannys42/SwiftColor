@@ -18,6 +18,8 @@ public struct XYZColorSpace: LinearColorSpace {
 }
 
 extension XYZColorSpace: AbsoluteColorSpace {
+    public static let standardWhitePoint = CIExyY.StandardIlluminant.D65
+
     public func toXYZ() -> XYZColorSpace { self }
 
     public init(_ xyz: XYZColorSpace) {

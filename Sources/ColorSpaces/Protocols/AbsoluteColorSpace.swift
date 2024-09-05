@@ -7,6 +7,8 @@
 
 
 public protocol AbsoluteColorSpace: ColorSpace {
+    static var standardWhitePoint: CIExyY { get }
+
     func toXYZ() -> XYZColorSpace
     init(_ xyz: XYZColorSpace)
 }

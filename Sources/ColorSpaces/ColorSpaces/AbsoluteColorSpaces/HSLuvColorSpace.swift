@@ -9,7 +9,8 @@ import Foundation
 public struct HSLuvColorSpace: AbsoluteColorSpace {
     public var hue, saturation, lightness: ColorUnit
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
-
+    public static let standardWhitePoint = CIExyY.StandardIlluminant.D65
+    
     public init(hue: ColorUnit, saturation: ColorUnit, lightness: ColorUnit) {
         self.hue = hue
         self.saturation = saturation
