@@ -8,18 +8,32 @@
 import Foundation
 import ColorSpaces
 
+/// A struct providing functionality to assess and improve text readability based on color contrast.
 struct TextReadability {
-    enum ColorStrategy {
+    /// Defines the strategy for suggesting readable text colors.
+    public enum ColorStrategy {
+        /// Suggests a color that contrasts with the background.
         case contrast
+        /// Suggests a color similar to the background but with improved readability.
         case similar
     }
 
-    enum TextPreference {
+    /// Defines the preference for text color in relation to the background.
+    public enum TextPreference {
+        /// Prefer lighter text colors.
         case light
+        /// Prefer darker text colors.
         case dark
+        /// No specific preference, chooses based on background.
         case neutral
     }
 
+    /// Calculates a readability score for text color against a background color.
+    ///
+    /// - Parameters:
+    ///   - text: The color of the text.
+    ///   - background: The color of the background.
+    /// - Returns: A readability score between 0 (unreadable) and 1 (highly readable).
     static func readabilityScore<T: AbsoluteColorSpace, U: AbsoluteColorSpace>(
         text: T,
         background: U
@@ -33,6 +47,15 @@ struct TextReadability {
         return combineScores(contrastRatio: contrastRatio, colorDifference: colorDifference)
     }
 
+    /// Suggests a readable text color for a given background color.
+    ///
+    /// - Parameters:
+    ///   - background: The background color.
+    ///   - preference: The preferred text color characteristic.
+    ///   - readabilityTarget: The target readability score (0 to 1).
+    ///   - colorStrategy: The strategy for suggesting colors.
+    ///   - constrainHue: Whether to maintain the original hue when adjusting colors.
+    /// - Returns: A suggested text color that meets the readability target.
     static func suggestReadableTextColor<T: AbsoluteColorSpace>(
         for background: T,
         preference: TextPreference = .neutral,
@@ -51,6 +74,15 @@ struct TextReadability {
         return T(suggestedLab.toXYZ())
     }
 
+    /// Adjusts a text color to improve readability against a background color.
+    ///
+    /// - Parameters:
+    ///   - text: The original text color.
+    ///   - background: The background color.
+    ///   - preference: The preferred text color characteristic.
+    ///   - readabilityTarget: The target readability score (0 to 1).
+    ///   - constrainHue: Whether to maintain the original hue when adjusting colors.
+    /// - Returns: An adjusted text color that meets the readability target.
     static func adjustTextColor<T: AbsoluteColorSpace>(
         text: T,
         background: T,
