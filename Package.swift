@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "ColorSpaces", targets: [ "ColorSpaces" ]),
         .library(name: "ColorSpaces-AppKit-UIKit", targets: [ "ColorSpaces-AppKit-UIKit" ]),
         .library(name: "ColorSpaces-SwiftUI", targets: [ "ColorSpaces-SwiftUI" ]),
+        .library(name: "TextReadability", targets: [ "TextReadability" ]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
@@ -38,6 +39,11 @@ let package = Package(
             dependencies: [
                 "ColorSpaces",
                 "ColorSpaces-AppKit-UIKit",
+            ]),
+        .target(
+            name: "TextReadability",
+            dependencies: [
+                "ColorSpaces",
             ]),
     ]
 )
