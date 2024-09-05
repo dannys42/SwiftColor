@@ -71,19 +71,19 @@ public struct LuvColorSpace: AbsoluteColorSpace {
     }
 
     // Helper methods to convert between 0-1 range and typical Luv ranges
-    private static func normalizeL(_ L: ColorUnit) -> ColorUnit {
+    public static func normalizeL(_ L: ColorUnit) -> ColorUnit {
         return L / 100
     }
 
-    private static func denormalizeL(_ l: ColorUnit) -> ColorUnit {
+    public static func denormalizeL(_ l: ColorUnit) -> ColorUnit {
         return l * 100
     }
 
-    private static func normalizeUV(_ uv: ColorUnit) -> ColorUnit {
+    public static func normalizeUV(_ uv: ColorUnit) -> ColorUnit {
         return (uv + 100) / 200
     }
 
-    private static func denormalizeUV(_ uv: ColorUnit) -> ColorUnit {
+    public static func denormalizeUV(_ uv: ColorUnit) -> ColorUnit {
         return uv * 200 - 100
     }
 }

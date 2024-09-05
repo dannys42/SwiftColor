@@ -34,10 +34,10 @@ public struct HSLuvColorSpace: AbsoluteColorSpace {
 
     private func toLuv() -> LuvColorSpace {
         if lightness > 0.9999999 {
-            return LuvColorSpace(l: 100, u: 0, v: 0)
+            return LuvColorSpace(l: 1, u: 0.5, v: 0.5)
         }
         if lightness < 0.0000001 {
-            return LuvColorSpace(l: 0, u: 0, v: 0)
+            return LuvColorSpace(l: 0, u: 0.5, v: 0.5)
         }
 
         let max = maxChromaForLH(L: lightness * 100, H: hue * 360)
@@ -47,14 +47,18 @@ public struct HSLuvColorSpace: AbsoluteColorSpace {
         let u = c * cos(hRad)
         let v = c * sin(hRad)
 
-        return LuvColorSpace(l: lightness * 100, u: u, v: v)
+        return LuvColorSpace(
+            l: lightness,
+            u: LuvColorSpace.normalizeUV(u),
+            v: LuvColorSpace.normalizeUV(v)
+        )
     }
 
     public init(_ luv: LuvColorSpace) {
-        let l = luv.l / 100
-        let u = luv.u
-        let v = luv.v
-
+        let l = luv.l
+        let u = LuvColorSpace.denormalizeUV(luv.u)
+        let v = LuvColorSpace.denormalizeUV(luv.v)
+        
         if l > 0.9999999 {
             self.init(hue: 0, saturation: 0, lightness: 1)
             return
@@ -63,20 +67,20 @@ public struct HSLuvColorSpace: AbsoluteColorSpace {
             self.init(hue: 0, saturation: 0, lightness: 0)
             return
         }
-
+        
         let c = sqrt(u * u + v * v)
         var h = atan2(v, u) / (2 * .pi)
-
+        
         if h < 0 {
             h += 1
         }
-
+        
         let max = maxChromaForLH(L: l * 100, H: h * 360)
         let s = c / max
-
+        
         self.init(hue: h, saturation: s, lightness: l)
     }
-    
+
     private static func xyzToLuv(X: ColorUnit, Y: ColorUnit, Z: ColorUnit) -> (L: ColorUnit, u: ColorUnit, v: ColorUnit) {
         let L = yToL(Y: Y / refY)
         
