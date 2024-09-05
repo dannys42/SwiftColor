@@ -11,7 +11,12 @@
 import Foundation
 
 public struct HSBColorSpace: RelativeColorSpace {
+    // hue: 0-1 (maps to 0-360 degrees)
+    // saturation: 0-1 (maps to 0-100%)
+    // brightness: 0-1 (maps to 0-100%)
     public var hue, saturation, brightness: ColorUnit
+    
+    // Components are in the range 0-1
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, brightness) }
 
     public static let standardWhitePoint = CIExyY.ColorSpace.AppleP3

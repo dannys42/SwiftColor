@@ -7,7 +7,12 @@
 
 
 public struct HSLColorSpace: RelativeColorSpace {
+    // hue: 0-1 (maps to 0-360 degrees)
+    // saturation: 0-1 (maps to 0-100%)
+    // lightness: 0-1 (maps to 0-100%)
     public var hue, saturation, lightness: ColorUnit
+    
+    // Components are in the range 0-1
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (hue, saturation, lightness) }
 
     public static let standardWhitePoint = CIExyY.ColorSpace.AppleP3

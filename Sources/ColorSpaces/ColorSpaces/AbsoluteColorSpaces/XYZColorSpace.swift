@@ -7,7 +7,10 @@
 
 
 public struct XYZColorSpace: LinearColorSpace {
+    // x, y, z: typically 0-1, but can be outside this range
     public var x, y, z: ColorUnit
+
+    // Components are typically in the range 0-1, but can exceed this range
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (x, y, z) }
 
     public init(x: ColorUnit, y: ColorUnit, z: ColorUnit) {

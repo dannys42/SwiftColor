@@ -8,7 +8,10 @@
 import Foundation
 
 public struct SRGBColorSpace: RelativeColorSpace {
+    // red, green, blue: 0-1
     public var red, green, blue: ColorUnit
+
+    // Components are in the range 0-1
     public var components: (ColorUnit, ColorUnit, ColorUnit) { (red, green, blue) }
 
     public static let standardWhitePoint = CIExyY.ColorSpace.AppleP3
